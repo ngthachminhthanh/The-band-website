@@ -156,10 +156,13 @@ html {
 #slider {
     margin-top: 46px;  /* do phần header có chứa position (tính chất của position là làm element đó nổi lên trên 1 tầng) nên 
                         phần slider sẽ bị thụt lên làm thiếu hụt kích thước đã khai báo ban đầu (do header đã đè lên slider) */
-    padding-top: 50%; /* setting theo tỉ lệ của ảnh 1200x600 thì tỉ lệ width:height là 2:1 (kỹ thuật quan trọng) */
-    background: url('/assets/img/slider/slider1.jpg') top center / cover no-repeat;
+    /* padding-top: 50%; /* setting theo tỉ lệ của ảnh 1200x600 thì tỉ lệ width:height là 2:1 (kỹ thuật quan trọng) */
+    /* background: url('/assets/img/slider/slider1.jpg') top center / cover no-repeat;  */
 }
 
+#slider img {
+   width: 100%;
+}   
 
 /* Content */
 #content {
