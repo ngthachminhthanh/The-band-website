@@ -21,7 +21,7 @@
                 <li><a href="#tour">Tour</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li>
-                    <a href="#">
+                    <a id="on-off-subnav" href="#">
                         More 
                         <i class="nav-arrow-down ti-angle-down"></i>     <!-- dùng thẻ i (in nghiêng) để tượng trưng cho viết tắt của "icon"-->
                     </a>
@@ -34,12 +34,15 @@
             </ul>
             <!-- End: Navigation-->
 
-            <!-- Begin: Search button-->
+            <!-- Mobile menu button -->
+            <div id="mobile-menu" class="mobile-menu-btn">
+                <i class="menu-icon ti-menu"></i>
+            </div>
+
+            <!-- Search button -->
             <div class="search-btn">
                 <i class="search-icon ti-search"></i>
             </div>
-            <!-- End: Search button-->
-
         </div>
 
         <div id="slider">
@@ -143,10 +146,10 @@
                     <div class="col col-half contact-form">
                         <form action="">
                             <div class="row">
-                                <div class="col col-half">
+                                <div class="col col-half col-full-on-mobile">
                                     <input type="text" name="" placeholder="Name" id="" required class="form-control">
                                 </div>
-                                <div class="col col-half">
+                                <div class="col col-half col-full-on-mobile">
                                     <input type="email" name="" placeholder="Email" id="" required class="form-control">
                                 </div>
                             </div>
@@ -216,6 +219,8 @@
     </div>
 
     <script>
+        // ------------- Begin: Xử lí modal "Buy Tickets" trong #tour---------------------
+
         const buyBtns = document.querySelectorAll('.js-tickets-button')
         const modal = document.querySelector('.js-modal')
         const modalContainer = document.querySelector('.js-modal-container')
@@ -247,6 +252,65 @@
         modalContainer.addEventListener('click', function (event){
             event.stopPropagation()
         })
+
+        // ------------- End: Xử lí modal "Buy Tickets" trong #tour---------------------
+
+        //------------------------------------------------------------------------------------------------------//
+
+        //----------Begin: Xử lí event click vào .mobile-menu-btn thì hiện/ẩn phần #nav trên mobile ---------
+        var header = document.getElementById('header');
+        var mobileMenu = document.getElementById('mobile-menu');
+        var headerHeight = header.clientHeight;
+        
+        // Đóng/mở mobile menu
+        mobileMenu.onclick = function() {
+            var isClosed = header.clientHeight === headerHeight;
+            if(isClosed) {
+                header.style.height = 'auto';
+            } else {
+                header.style.height = null;
+            }
+        }
+
+        // Tự động đóng khi chọn menu 
+        var menuItems = document.querySelectorAll('#nav li a[href*="#"]');
+        for(var i=0; i < menuItems.length; i++) {
+            var menuItem = menuItems[i];
+        
+            menuItem.onclick = function(event) {
+                /* Kiểm tra nếu ngay phía sau thẻ a có tồn tại 1 thẻ nào đó khác (anh chị em/sibling)
+                   và thẻ đó có chứa class là subnav thì thẻ a đó là thẻ cha của menu cấp 2 
+                   ==> Xác định được thẻ a chứa menu cấp 2 (More)  */ 
+                var isParentMenu = this.nextElementSibling && this.nextElementSibling.classList.contains('subnav');
+
+                if(isParentMenu){
+                    /* Nếu đúng là More thì ngăn cản hành vi mặc định (href="#", reload website)
+                     thông qua sự kiện trả về khi click là event ==> không ẩn menu */
+                    event.preventDefault();
+                } else {
+                    // Nếu không phải, thì tức là những thẻ a còn lại (ngoài More), click vào vẫn ẩn menu đi bình thường 
+                    header.style.height = null;
+                }
+            }
+        }
+        
+        // Đóng/mở menu cấp 2
+        var onOffSubnav = document.getElementById('on-off-subnav');
+        var subnav = document.querySelector('.subnav');
+    
+        onOffSubnav.onclick = function() {
+            // Kiểm tra trạng thái đóng hoặc mở menu cấp 2 
+            // Nếu position của subnav là initial tức là menu đang mở ra, absolute thì đóng lại 
+            var isOpen = subnav.style.position === "initial";
+            
+            if(isOpen) {
+                subnav.style.position = "absolute";
+            } else {
+                subnav.style.position = "initial";
+            }
+        }
+
+        //----------End: Xử lí event click vào .mobile-menu-btn thì hiện/ẩn phần #nav trên mobile ---------
     </script>
 
 </div>
