@@ -24,6 +24,10 @@ html {
     margin-top: 8px !important;
 }
 
+.mb8 {
+    margin-bottom: 8px !important;
+}
+
 .mt16 {
     margin-top: 16px !important;
 }
@@ -642,6 +646,14 @@ html {
     }
 
     .col-full-on-mobile {
+        width: 100%;
+    }
+
+    .contact-form .form-submit-btn {
+        width: 100%;
+    }
+
+    .js-tickets-button {
         width: 100%;
     }
 }
